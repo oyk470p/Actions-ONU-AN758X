@@ -29,6 +29,8 @@ mkdir -p "$PKG_DIR"
 # ---------------------------------------------------------
 # 插件开关
 # ---------------------------------------------------------
+ADD_AURORA=true        # luci-theme-aurora：aurora 风格主题
+ADD_HONK=true          # luci-app-honk
 ADD_LUCI_APP=true      # qwe3017/luci-app 仓库（monorepo）
                        #   ├─ luci-app-pon-status  PON 光模块卡片（概览页「系统」下一格）
                        #   └─ luci-app-natmode     NAT 类型三选一（网络 → NAT 类型）
@@ -55,6 +57,16 @@ clone() {  # clone <url> <dir> [branch]
   echo "::error::克隆失败: $url"
   return 1
 }
+
+# --- aurora ---
+if [ "$ADD_AURORA" = "true" ]; then
+  clone https://github.com/eamonxg/luci-theme-aurora "$PKG_DIR/luci-theme-aurora" master
+  clone https://github.com/eamonxg/luci-app-aurora-config "$PKG_DIR/luci-app-aurora-config" master
+fi
+# --- honk ---
+if [ "$ADD_HONK" = "true" ]; then
+  clone https://github.com/kenzok8/openwrt-honk "package/honk" main 
+fi
 
 # =========================================================
 # 1. firewall4 补丁：zone device 也参与 flowtable 卸载解析

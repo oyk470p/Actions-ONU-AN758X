@@ -8,7 +8,7 @@ env:
   BUILD_ROOT: /workdir
   SOURCE: ${{ github.event.inputs.source || 'fork' }}
   # 唯一真相源：固件版本后缀的作者名（LuCI 概览页「固件版本」）
-  FW_AUTHOR: 'maple'
+  FW_AUTHOR: 'Nokia'
   REPO_URL: ${{ github.event.inputs.source == 'pbs05/ponwrt' && 'https://github.com/pbs05/ponwrt' || 'https://github.com/qwe3017/ponwrt' }}
   FEEDS_CONF: 'feeds.conf'
   DIY_P1_SH: diy-part1.sh
@@ -26,7 +26,7 @@ env:
   BUILD_SCOPE: ${{ github.event.inputs.scope || 'firmware' }}
   IGNORE_CACHE: ${{ github.event.inputs.ignore_cache || 'false' }}
   FW_BUILD_TIME: ''                 # 留空 = 自动取构建时时间（Asia/Shanghai）
-  FW_DESC_SUFFIX: ''               # 留空 = "· maple · <构建时间>"；填了则完全自定义
+  FW_DESC_SUFFIX: ''               # 留空 = "· Nokia · <构建时间>"；填了则完全自定义
 
 on:
   repository_dispatch:
@@ -55,7 +55,7 @@ on:
       profile:
         description: '机型 profile (all=全机型编译)'
         required: true
-        default: 'fiberhome_hg5585f-ct'
+        default: 'nokia_xg-040g-tf-ubi'
         type: choice
         options:
           - fiberhome_hg5585f-cu
@@ -89,9 +89,9 @@ on:
           - 'true'
       # 覆盖口：不填即为 env.FW_AUTHOR 的 "qwe"。保留输入项仅为临时指定其他作者。
       fw_author:
-        description: '覆盖固件版本后缀的作者名（LuCI 概览页「固件版本」）。留空 = maple'
+        description: '覆盖固件版本后缀的作者名（LuCI 概览页「固件版本」）。留空 = Nokia'
         required: false
-        default: 'maple'
+        default: 'Nokia'
       upload_release:
         description: '固件发布到 Release（false 则只传 Artifact）'
         required: false
@@ -229,7 +229,7 @@ jobs:
 
           # 输入项为空时回退到 workflow 级默认值，确保 diy-part2.sh 拿到的
           # 始终是确定值，而不是空串（空串会让 LuCI 概览页显示 "·  ·"）。
-          echo "FW_AUTHOR=${FW_AUTHOR:-maple}" >> "$GITHUB_ENV"
+          echo "FW_AUTHOR=${FW_AUTHOR:-Nokia}" >> "$GITHUB_ENV"
 
           cd openwrt && echo "commit: $(git rev-parse --short HEAD)"
 

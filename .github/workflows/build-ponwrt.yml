@@ -237,7 +237,7 @@ jobs:
         run: |
           cd "$BUILD_ROOT/openwrt"
           mkdir -p package/network/config/firewall4/patches
-          cp "$GITHUB_WORKSPACE/patches/100-flowtable-zone-device.patch" \
+          cp "$GITHUB_WORKSPACE/patches/010-flowtable-zone-device.patch" \
           package/network/config/firewall4/patches/
 
       # =========================================================

@@ -233,12 +233,12 @@ jobs:
 
           cd openwrt && echo "commit: $(git rev-parse --short HEAD)"
 
-      # - name: Add firewall4 patch
-      # run: |
-      #   cd "$BUILD_ROOT/openwrt"
-      #   mkdir -p package/network/config/firewall4/patches
-      #   cp "$GITHUB_WORKSPACE/patches/010-flowtable-zone-device.patch" \
-      #   package/network/config/firewall4/patches/
+      - name: Add firewall4 patch
+        run: |
+          cd "$BUILD_ROOT/openwrt"
+          mkdir -p package/network/config/firewall4/patches
+          cp "$GITHUB_WORKSPACE/patches/010-flowtable-zone-device.patch" \
+          package/network/config/firewall4/patches/
 
       # =========================================================
       # 3. dl 下载缓存
